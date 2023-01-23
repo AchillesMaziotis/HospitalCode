@@ -1,0 +1,248 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyAgro : MonoBehaviour
+{
+    
+    
+    
+    
+
+    Rigidbody2D rb;
+   
+    Animator EnemyZombie;
+    
+    private Vector3 startingPosition;
+    private Vector3 roamPosition;
+    
+    //[SerializeField]
+    //GameObject zombieAnimation;
+    
+    [SerializeField]
+    Transform player;
+   
+    [SerializeField]
+    public float attackDamage;
+
+    [SerializeField]
+    public float agroRange;
+    
+    
+
+    
+    private float stoppingDistance;
+    
+    public float speed;
+    
+    
+    
+
+
+
+    
+    
+    
+    
+    void Start()
+
+    {
+        
+        
+
+        
+
+
+        
+        rb = GetComponent<Rigidbody2D>();
+        
+        //zombieAnimation
+        
+        EnemyZombie = GetComponent<Animator>();
+
+        
+    }
+
+    
+    
+        
+        
+    //private void OnCollisionStay2D(Collision2D other){
+        //if (other.gameObject.tag == "Player"){
+            //other.gameObject.GetComponent<UIScript>().curHealth(-attackDamage);
+
+        //}
+
+
+    //}
+    
+    
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+            Vector2 difference = transform.position - other.transform.position;
+            transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
+            }
+        }
+    }    
+    
+    
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+            Vector2 difference = transform.position - other.transform.position;
+            transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
+            }
+        }
+    }    
+
+
+
+    
+    
+    
+    
+    void Update()
+ {   
+  
+    
+    
+    
+    
+    
+        
+        
+        float distToPlayer = Vector3.Distance(transform.position, player.position);
+
+            
+            if(distToPlayer < agroRange)
+
+                {
+                ChasePlayer();
+                }
+        
+            else
+       
+                {
+                StopChasingPlayer();
+                }
+}
+
+     
+     
+    void ChasePlayer()
+
+{ 
+    if(Vector2.Distance(transform.position, player.position) > stoppingDistance)
+    {
+        
+        Vector3 direction = player.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+    
+        rb.rotation = angle;
+    
+    }
+        //float attackRange= 10f;
+        //if (Vector3.Distance(EnemyZombie.transform.position, player.Instance.GetPosition()) < attackRange)
+        //{
+        
+       //}
+    
+      
+
+        EnemyZombie.Play("zombie_walk_animation");
+
+}
+
+
+        
+        
+    void StopChasingPlayer()
+    
+{
+    rb.velocity = new Vector2(0, 0);
+    EnemyZombie.Play("zombie_idle_animation");
+
+}
+
+    // Me Auto to Script Kanw Knock Back to Enemy --------
+    /*
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+            Vector2 difference = transform.position - other.transform.position;
+            transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
+            }
+        }
+  }
+    
+    
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+            Vector2 difference = transform.position - other.transform.position;
+            transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
+            }
+        }
+    }
+
+*/
+
+
+
+
+/*
+
+
+
+    private void OnTriggerEnter2D(Collider2D playerCollider)
+    {
+        if (playerCollider.gameObject.tag == "JumpingProp")
+        {
+            agroRange = 1;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D playerCollider)
+    {
+        if (playerCollider.gameObject.tag == "JumpingProp")
+        {
+            agroRange = 0;
+        }
+    }
+
+   private void OnTriggerExit2D(Collider2D playerCollider)
+    {
+        if (playerCollider.gameObject.tag == "JumpingProp")
+        {
+            agroRange = 3;
+        }
+    }
+
+
+*/
+
+
+
+
+
+
+
+
+
+}
