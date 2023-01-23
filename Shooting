@@ -1,0 +1,178 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Shooting : MonoBehaviour
+{
+    public Transform spawnpoint;
+	public GameObject bulletPrefab;
+    public GameObject bulletPrefab2;
+    public Animator anim;
+    public Animator anim2;
+    public Animator anim3;
+    public Animator anim4;
+    private PlayerMovement player;
+    private float bulletForce = 15f;
+    
+
+    void Start()
+    {     
+        player = FindObjectOfType<PlayerMovement>();
+        anim = GetComponent<Animator>();
+        anim2 = GetComponent<Animator>();
+        anim3 = GetComponent<Animator>();
+        anim4 = GetComponent<Animator>();
+        
+    }
+    
+    
+    
+
+
+     private void Update()
+    {
+        
+        if(Input.GetButtonDown("Fire1"))
+        {
+            if (this.anim.GetCurrentAnimatorStateInfo(0).IsName("New_Idle"))
+            {
+               
+                Shoot();
+                
+            
+            }
+            if (this.anim2.GetCurrentAnimatorStateInfo(0).IsName("New_Walk"))
+            {
+                
+                Shoot();
+                
+            }
+            if (this.anim3.GetCurrentAnimatorStateInfo(0).IsName("New_Idle_02_Rifle"))
+            {
+                
+                ShootRifle();
+                
+            }
+            if (this.anim4.GetCurrentAnimatorStateInfo(0).IsName("New_Walk_02_Rifle"))
+            {
+                
+                ShootRifle();
+                
+            }
+        
+        }
+  
+        
+    
+            
+
+
+
+        
+
+
+
+    }
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    void Shoot()
+    {
+
+        GameObject bullet = Instantiate(bulletPrefab, spawnpoint.position, spawnpoint.rotation);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+
+        rb.AddForce(spawnpoint.up * bulletForce, ForceMode2D.Impulse);
+
+    }
+
+    void ShootRifle()
+    {
+      GameObject bullet2 = Instantiate(bulletPrefab2, spawnpoint.position, spawnpoint.rotation);
+      Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
+
+      rb2.AddForce(spawnpoint.up * bulletForce, ForceMode2D.Impulse);
+    }
+
+
+
+
+    
+    
+    
+    
+    
+    
+    /*
+        if (Input.GetButtonDown("2Key"))
+        {
+            Shoot.SetActive(true);
+            ShootRifle();
+            Debug.Log("ShootRifle");
+        }
+        
+    
+
+    
+
+  void ShootRifle()
+  {
+      GameObject bullet2 = Instantiate(bulletPrefab2, spawnpoint.position, spawnpoint.rotation);
+  }
+
+    
+    
+    
+    
+    
+    
+    //private void Update()
+    /* (
+      if (isReloading)
+        return;
+    IEnumerator Reload()
+    
+        isReloading = true;
+        
+        Debug.Log("Reloading. . .");
+        
+        yield return new WaitForSeconds(reloadTime);
+        
+        currentAmmo = maxAmmo;
+
+        isReloading = false;
+
+    }
+        void Shoot()
+    {
+        //currentAmmo--;
+
+        if (currentAmmo <=0)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+        
+        
+
+            //Void Start()
+         (if (currentAmmo == -1)
+         currentAmmo = maxAmmo;)*/
+        
+
+    //public int maxAmmo= 10;
+    //public int currentAmmo;
+    //public float reloadTime = 1f;
+	//private bool isReloading = false;
+
+}
+
