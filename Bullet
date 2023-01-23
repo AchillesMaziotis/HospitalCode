@@ -1,0 +1,90 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+
+
+public class Bullet : MonoBehaviour
+{
+   
+   // public GameObject BulletPrefab;
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.tag != "TestingBulletPrefab")
+        {
+            Destroy(gameObject);            
+        }
+        
+    }
+
+    /*void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.tag == "TestingBulletPrefab")
+        {
+            Physics2D.IgnoreCollision
+        }
+
+    }
+*/
+    
+
+    
+
+
+
+    
+
+
+
+
+/*
+
+= = = Test = = =
+
+void OnCollisionStay2D(Collision2D other)
+    {
+         if (other.collider.tag != "TestingBulletPrefab")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+void OnCollisionExit2D(Collision2D other)
+    {
+         if (other.collider.tag != "TestingBulletPrefab")
+        {
+            Destroy(gameObject);
+        }   
+    }
+
+    void start()
+    {
+        Physics2D.IgnoreCollision;
+    }
+
+    
+    void OnCollisionEnter2D(Collision collision)
+    {
+        if (collision.gameObject.tag == "TestingBulletPrefab")
+        {
+            Physics.IgnoreCollision(BulletTesting.collider, collider);
+        }
+    }
+*/
+
+
+
+/*void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.tag == "TestingBulletPrefab")
+        {
+            damageAbsorve = false;
+        }
+    }
+*/  
+
+
+
+}
