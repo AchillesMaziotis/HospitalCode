@@ -1,0 +1,179 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System;
+
+
+public class StaminaBar : MonoBehaviour
+{
+        public bool flag = false;
+
+        public bool isWalking = false;
+
+        public GameObject EnergyGreen;
+        public GameObject EnergyYellow;
+        
+        public GameObject StaminaOnHealth1;
+        public GameObject StaminaOnHealth2;
+        public GameObject StaminaOnHealth3;
+        public GameObject StaminaOnHealth4;
+
+public GameObject BlackHealthBar1;
+public GameObject BlackHealthBar2;
+public GameObject BlackHealthBar3;
+public GameObject BlackHealthBar4;
+
+        public GameObject HideUi_Energy_Green;
+        public GameObject HideUi_Energy_Yellow;
+        
+
+
+        public PlayerMovement playerSprint;
+        
+        public float stamina ;
+        float maxStamina = 10 ;
+
+        private WaitForSeconds regenTick = new WaitForSeconds(0.1f);
+
+        private Coroutine regen;
+
+
+        public Slider staminaBar;
+        public float dValue ;
+
+
+    void Start()
+    {
+        HideUi_Energy_Green.SetActive(false);
+        HideUi_Energy_Yellow.SetActive(false);
+        StaminaOnHealth1.SetActive(false);
+        StaminaOnHealth2.SetActive(false);
+        StaminaOnHealth3.SetActive(false);
+        StaminaOnHealth4.SetActive(false);
+        
+        BlackHealthBar1.SetActive(false);
+        BlackHealthBar2.SetActive(false);
+        BlackHealthBar3.SetActive(false);
+        BlackHealthBar4.SetActive(false);
+        
+        maxStamina = stamina;
+        staminaBar.maxValue = maxStamina;
+        staminaBar.value = maxStamina;
+        
+        playerSprint = FindObjectOfType<PlayerMovement>();
+    
+    
+    
+    }
+
+    
+    
+    
+    
+    
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "FlashLight")
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+            
+        HideUi_Energy_Green.SetActive(true);
+        HideUi_Energy_Yellow.SetActive(true);
+        BlackHealthBar1.SetActive(true);
+        BlackHealthBar2.SetActive(true);
+        BlackHealthBar3.SetActive(true);
+        BlackHealthBar4.SetActive(true);
+                
+                
+                flag = true;
+            }
+        }
+    }
+    
+    void Update()
+    {
+        
+        
+        
+        
+        if (isWalking == true)
+        {
+
+        if (Input.GetKey(KeyCode.LeftShift))
+            //if( playerSprint.this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Idle"))
+           // {
+                DecreaseEnergy();
+            //}
+        else if (stamina != maxStamina)  
+        IncreaseEnergy();
+        staminaBar.value = stamina;
+        
+        }  
+
+        if (flag == true)
+        {
+            if (stamina <= 1 )
+            {
+            EnergyGreen.SetActive(false);
+            EnergyYellow.SetActive(true);
+            StaminaOnHealth1.SetActive(true);
+            StaminaOnHealth2.SetActive(true);
+            StaminaOnHealth3.SetActive(true);
+            StaminaOnHealth4.SetActive(true);
+            
+            } 
+                else
+            {
+            EnergyGreen.SetActive(true);
+            EnergyYellow.SetActive(false);
+            StaminaOnHealth1.SetActive(false);
+            StaminaOnHealth2.SetActive(false);
+            StaminaOnHealth3.SetActive(false);
+            StaminaOnHealth4.SetActive(false);
+            }
+        }
+
+
+        
+        
+
+    }
+
+
+    private void DecreaseEnergy()
+    {
+        if (stamina >= 0)
+        stamina -= dValue * Time.deltaTime;
+        
+        
+    }
+    
+    private void IncreaseEnergy()
+    {
+        
+        
+        regen = StartCoroutine(RegenStamina()); 
+    }
+
+   
+    private IEnumerator RegenStamina()
+    {
+        yield return new WaitForSeconds(2);
+        
+        if (stamina < maxStamina)
+        {
+        stamina += dValue * Time.deltaTime / 2;
+        staminaBar.value = stamina; 
+        yield return regenTick;
+        }                                                                                       
+        regen = null;
+        
+        if(regen != null)
+        {
+        StopCoroutine(regen);
+        } 
+    }
+}    
+            
