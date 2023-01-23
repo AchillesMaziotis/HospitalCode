@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Teleportation : MonoBehaviour
+{
+  
+    public GameObject Portal;
+    public GameObject Player;
+
+    
+
+/*
+    ----Test----
+    
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                StartCoroutine (Teleport());
+            }
+
+        }
+*/
+    
+    //IEnumerator
+    //yield return new WaitForSeconds (2);
+    //void Teleport()
+    //{
+    //    
+    //    Player.transform.position = new Vector2 (Portal.transform.position.x, Portal.transform.position.y);
+    //}
+
+
+
+
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        
+        if (Input.GetKeyDown(KeyCode.E) && other.tag == "Player")
+        {
+            Player.transform.position = new Vector2 (Portal.transform.position.x, Portal.transform.position.y);
+        }
+        
+        
+        /*
+        if(Input.GetKeyDown(KeyCode.E))
+            {
+                StartCoroutine (Teleport());
+            }
+*/
+    }
+}
