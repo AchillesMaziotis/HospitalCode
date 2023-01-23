@@ -1,0 +1,1822 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerMovement : MonoBehaviour
+{
+   
+   
+   
+   public GameObject EndGameSpriteCanvas;
+   
+   
+   
+    public bool youhavetheCan = false;
+
+    public bool FinishTheHeli = false;
+
+    
+    //------------Quest Ui------------
+    
+    public GameObject FirstQuest;
+    public GameObject SecondQuest;
+    public GameObject SecondQuestBOX;
+    //public GameObject ThirdQuest;
+
+
+    
+    //------------Quest Ui------------
+    
+    public GameObject EnterHeli;
+
+    public GameObject Quest5;
+    
+    public GameObject EnterPressE;
+
+    public GameObject MainQuest;
+
+    public GameObject Quest4_Pop_up;
+
+    public GameObject HeliCollider;
+
+    public GameObject GasCanObject;
+
+    public GameObject CanOfGasolineText;
+
+    public GameObject KeyUi3;
+    public GameObject Quest3_Pop_up;
+
+    public GameObject EmptyObjectUnlock3;
+
+    public GameObject ColliderDoor1;
+    public GameObject ColliderDoor2;
+    public GameObject ColliderKey3;
+
+    public bool youhavekey3 = false;
+
+    public GameObject EmptyObjectForSecondQuest;
+    public GameObject EmptyObjectForSecondQuest2;
+    public GameObject roof;
+    public GameObject roof2;
+    public GameObject YouNeedToFindAKey;
+    
+    public bool keyPocket = false;
+    public bool keyPocket2 = false;
+    
+    public bool door = false;
+    public bool door2 = false;
+
+    public GameObject EmptyObjectUnlock;
+    
+    
+    public GameObject EmptyObjectUnlock2;
+    public GameObject DoorUnlockMessage;
+    
+
+
+    public GameObject KeyUi;
+    public GameObject KeyUi2;
+    
+    public GameObject keyMessage;
+    public GameObject keyCollider;
+    public GameObject key;
+    public GameObject keyCollider2;
+    
+    public GameObject keyCollider3;
+    public GameObject key2;
+    public GameObject keyCollider4;
+
+    public bool secondaryWeaponActive = false;
+    public bool switchWeapon = false;
+    public GameObject View;
+    public GameObject LowHealth;
+    public GameObject FlashLight_Power1;
+    public GameObject FlashLight_Power2;
+    public GameObject FlashLight_Default_Power;
+    public GameObject FlashLight_Default_Power2;
+    public GameObject RefuelText;
+    
+
+    public GameObject SwapIcon;
+    public GameObject SprintTrigger;
+    
+    //---------TipsUI----------
+
+    public GameObject TipMessenge;
+    public GameObject TipOriginalsquare_01;
+    public GameObject TipOriginalsquare_02;
+    public GameObject TipAdjustsquare_01;
+    public GameObject TipAdjustsquare_02;
+
+    //---------TipsUI----------
+
+    public bool mjump = false;
+    public bool next = false;
+    public bool riflepop = false;
+    //public GameObject bedPrefab;
+
+    public StaminaBar staminaRegen;
+
+
+    // ---------SprintinUi---------
+    public bool isSprinting = false;
+    public float sprintingMultiplier;
+    // ---------SprintinUi---------
+    
+    
+    
+    // -------------TriggersCollidersForZombieAgro----------------
+    BoxCollider2D boxColliderComponent;                             //Step #1 declare
+    BoxCollider2D boxColliderComponent2;
+    BoxCollider2D boxColliderComponent3;
+    BoxCollider2D boxColliderComponent4;
+    BoxCollider2D boxColliderComponent5;
+    BoxCollider2D boxColliderComponent6;
+    BoxCollider2D boxColliderComponent7;
+    BoxCollider2D boxColliderComponent8;
+    BoxCollider2D boxColliderComponent9;
+    BoxCollider2D boxColliderComponent10;
+    BoxCollider2D boxColliderComponent11;
+    //---------------
+    /*GameObject zombie;
+    GameObject zombie1;
+    GameObject zombie2;
+    GameObject zombie3;
+    GameObject zombie4;
+    GameObject zombie5;
+    GameObject zombie6;
+    GameObject zombie7;
+    GameObject zombie8;
+    GameObject zombie9;
+    GameObject zombie10;
+    GameObject zombie11;
+    GameObject zombie12;
+    GameObject zombie13;
+    GameObject zombie14;
+    GameObject zombie15;
+    GameObject zombie16;
+    GameObject zombie17;
+    GameObject zombie18;
+    GameObject zombie19;
+    GameObject zombie20;
+    GameObject zombie21;
+    GameObject zombie22;
+    GameObject zombie23;
+    */
+    
+    
+    
+    
+    //BoxCollider2D boxColliderComponent12;
+    //BoxCollider2D boxColliderComponent13;
+    //BoxCollider2D boxColliderComponent14;
+    //BoxCollider2D boxColliderComponent15;
+    
+    
+    
+    
+    public GameObject PistolUi;
+    public GameObject RifleUi;
+    public GameObject PistolImageUi;
+    public GameObject RifleImageUi;
+    public GameObject PistolImageUi2;
+    public GameObject RifleImageUi2;
+    public GameObject UI_Stairs_Mess;
+    public GameObject UI_Stairs_Trigger;
+    
+    public GameObject DeleteShiftTrigger;
+    
+    public GameObject DoorMessenge;
+    public GameObject MessengeHoldJump;
+    
+    
+    // -------------TriggersCollidersForZombieAgro----------------
+    
+    public EnemyAgro EnemySystem;
+    
+
+    public float moveSpeed = 5f;
+
+    public Rigidbody2D rb;
+   
+    public Camera cam;
+
+    public UIScript ui;
+    
+    public Animator animator;
+    
+    public GameObject crosshair;
+
+    public Vector2 movementDirection;
+    
+    public float CROSSHAIR_DISTANCE = 1.0f;
+
+    private Shooting BulletPrefab;
+
+    
+    
+    
+    Vector2 movement;
+    Vector2 mousePos; 
+
+    
+    public GameObject RifleText;
+    public GameObject RifleImage;
+    
+
+
+
+
+
+        
+        
+        
+        void Aim() 
+    {
+        if (movementDirection != Vector2.zero)
+        {
+            crosshair.transform.localPosition = movementDirection * CROSSHAIR_DISTANCE;
+        }
+    } 
+
+        //public float reloadTime = 1f;
+        
+        
+        
+        
+        public int maxAmmo= 10;
+        
+        public int totalHealth = 100;
+   
+        public int curHealth = 100; 
+   
+        public int currentAmmo;
+
+        public int currentAmmo2;
+        
+        public bool isFiring;
+
+        public bool isFiring2;
+
+        
+
+        public int score = 0;
+
+        public GameObject Prefab_Bullet;
+
+        public GameObject Prefab_Bullet2;
+
+        
+//  --------- Player_View_Darkness_FlashLight ---------  \\
+        
+    //public GameObject Player_Without_FlashLight;
+    //public GameObject Player_FlasLight_Power1;    
+    public GameObject FlashLight;        
+    public GameObject FlashLight2;
+    public GameObject FlashLight_Mess;
+     public GameObject FlashLight_Mess2;
+//  --------- Player_Ui_popUp_With_FlashLight ---------  \\     
+
+    public GameObject HideUi_HealthBar;
+    public GameObject HideUi_HealthBar2;
+    
+    
+   
+
+
+//  --------- Player_View_Darkness_FlashLight ---------  \\        
+        
+        public void changeFlash()
+        {
+            //Player_Without_FlashLight.SetActive(false);
+            //Player_FlasLight_Power1.SetActive(true);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        void Awake ()
+    {
+      
+    }
+      
+        
+
+
+
+
+
+
+
+
+
+
+        
+        void Start()
+    {
+        
+        EndGameSpriteCanvas.SetActive(false);
+        EnterPressE.SetActive(false);
+        EnterHeli.SetActive(false);
+        Quest5.SetActive(false);
+        Quest4_Pop_up.SetActive(false);
+        RefuelText.SetActive(false);
+        HeliCollider.SetActive(false);
+        GasCanObject.SetActive(true);
+        CanOfGasolineText.SetActive(false);
+        KeyUi3.SetActive(false);
+        Quest3_Pop_up.SetActive(false);
+        ColliderDoor1.SetActive(true);
+        ColliderDoor2.SetActive(true);
+        ColliderKey3.SetActive(true);
+        //------------Quest Ui------------
+        FirstQuest.SetActive(true);
+        SecondQuest.SetActive(false);
+        SecondQuestBOX.SetActive(true);
+        //ThirdQuest.SetActive(false);
+        //------------Quest Ui------------
+        DeleteShiftTrigger.SetActive(true);
+        EmptyObjectForSecondQuest.SetActive(true);
+        EmptyObjectForSecondQuest2.SetActive(true);
+        YouNeedToFindAKey.SetActive(false);
+        
+        EmptyObjectUnlock.SetActive(true);
+        EmptyObjectUnlock2.SetActive(true);
+        EmptyObjectUnlock3.SetActive(true);
+        DoorUnlockMessage.SetActive(false);
+        
+        MainQuest.SetActive(true);
+
+        KeyUi.SetActive(false);
+        KeyUi2.SetActive(false);
+        keyMessage.SetActive(false);
+        key.SetActive(true);
+        key2.SetActive(true);
+        keyCollider.SetActive(true);
+        keyCollider2.SetActive(true);
+        
+        keyCollider3.SetActive(true);
+        keyCollider4.SetActive(true);
+
+        //-----TipUI----
+        TipMessenge.SetActive(false);
+        TipOriginalsquare_01.SetActive(false);
+        TipOriginalsquare_02.SetActive(false);
+        TipAdjustsquare_01.SetActive(false);
+        TipAdjustsquare_02.SetActive(false);
+        //-----TipUI----
+        
+        
+        
+        
+        
+        SprintTrigger.SetActive(false);
+        
+        SwapIcon.SetActive(false);
+        
+        RifleImageUi2.SetActive(false);
+        RifleImage.SetActive(true);
+        RifleText.SetActive(false);
+        View.SetActive(false);
+        LowHealth.SetActive(false);
+        FlashLight_Power1.SetActive(false);
+        FlashLight_Power2.SetActive(false);
+        FlashLight_Default_Power.SetActive(true);
+        FlashLight_Default_Power2.SetActive(true);
+        FlashLight2.SetActive(true);
+
+        DoorMessenge.SetActive(false);
+        MessengeHoldJump.SetActive(false);
+
+        HideUi_HealthBar.SetActive(false);
+        HideUi_HealthBar2.SetActive(false);
+        
+        UI_Stairs_Mess.SetActive(false);
+        Prefab_Bullet2.SetActive(true);
+        Prefab_Bullet.SetActive(true);
+        
+        FlashLight_Mess.SetActive(false);
+        FlashLight_Mess2.SetActive(false);
+        
+        
+        staminaRegen = FindObjectOfType<StaminaBar>();
+
+        rb = GetComponent<Rigidbody2D>();
+        
+        EnemySystem = FindObjectOfType<EnemyAgro>();
+
+        ui = FindObjectOfType<UIScript>();
+        
+        //ui.SetMaxHealth();
+    
+        playerSprite = GetComponent<SpriteRenderer>();
+
+        BulletPrefab = FindObjectOfType<Shooting>();
+
+        
+    
+        
+        //      ][][][][][][][][][]] TO SCRIPT POU PREPEI NA ALLAKSW GIA NA XRISIMOPISO TAGS OSTE NA EXW ARKETA GAMEOBJECTS TAFTOXRONA [][]][][][]][]][]                  
+
+        boxColliderComponent = GameObject.Find("Jumping").GetComponent<BoxCollider2D>();                                                                    //Step #3 use the variable 
+        boxColliderComponent2 = GameObject.Find("Jumping2").GetComponent<BoxCollider2D>();
+        boxColliderComponent3 = GameObject.Find("Jumping3").GetComponent<BoxCollider2D>();
+        boxColliderComponent4 = GameObject.Find("Jumping4").GetComponent<BoxCollider2D>();
+        boxColliderComponent5 = GameObject.Find("Jumping5").GetComponent<BoxCollider2D>();
+        boxColliderComponent6 = GameObject.Find("Jumping6").GetComponent<BoxCollider2D>();
+        boxColliderComponent7 = GameObject.Find("Jumping7").GetComponent<BoxCollider2D>();
+        boxColliderComponent8 = GameObject.Find("Jumping8").GetComponent<BoxCollider2D>();
+        boxColliderComponent9 = GameObject.Find("Jumping9").GetComponent<BoxCollider2D>();
+        boxColliderComponent10 = GameObject.Find("Jumping10").GetComponent<BoxCollider2D>();
+        boxColliderComponent11 = GameObject.Find("Jumping11").GetComponent<BoxCollider2D>();
+        //----------------------
+        /*zombie1 = GameObject.Find("zombie").GetComponent<GameObject>();
+        zombie2 = GameObject.Find("zombie2").GetComponent<GameObject>();
+        zombie3 = GameObject.Find("zombie3").GetComponent<GameObject>();
+        zombie4 = GameObject.Find("zombie4").GetComponent<GameObject>();
+        zombie5 = GameObject.Find("zombie5").GetComponent<GameObject>();
+        zombie6 = GameObject.Find("zombie6").GetComponent<GameObject>();
+        zombie7 = GameObject.Find("zombie7").GetComponent<GameObject>();
+        zombie8 = GameObject.Find("zombie8").GetComponent<GameObject>();
+        zombie9 = GameObject.Find("zombie9").GetComponent<GameObject>();
+        zombie10 = GameObject.Find("zombie10").GetComponent<GameObject>();
+        zombie11 = GameObject.Find("zombie11").GetComponent<GameObject>();
+        zombie12 = GameObject.Find("zombie12").GetComponent<GameObject>();
+        zombie13 = GameObject.Find("zombie13").GetComponent<GameObject>();*/
+        //boxColliderComponent12 = GameObject.Find("Jumping12").GetComponent<BoxCollider2D>();
+        //boxColliderComponent13 = GameObject.Find("Jumping13").GetComponent<BoxCollider2D>();
+        //boxColliderComponent14 = GameObject.Find("Jumping14").GetComponent<BoxCollider2D>();
+        //boxColliderComponent15 = GameObject.Find("Jumping15").GetComponent<BoxCollider2D>();
+        
+
+        
+        
+    
+    
+    
+    }
+
+        
+        
+        
+        
+        
+        void OnTriggerEnter2D(Collider2D other)
+    {
+         /*
+         if (other.gameObject.tag == "UnlockDoor")
+         {
+            if (door == false)
+            {
+                YouNeedToFindAKey.SetActive(true);
+                DoorUnlockMessage.SetActive(false);
+            }
+            else
+            {
+                YouNeedToFindAKey.SetActive(false);
+                DoorUnlockMessage.SetActive(true);
+            }
+            
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    if (door == true)
+                    {
+                    EmptyObjectUnlock.SetActive(false);
+                    keyCollider.SetActive(false);
+                    keyCollider2.SetActive(false);
+                    keyPocket = true;
+                    YouNeedToFindAKey.SetActive(false);
+                    DoorUnlockMessage.SetActive(false);
+                    
+                    
+                    }
+                
+                }
+         }  
+*/
+        if (other.gameObject.tag == "DeleteShiftTrigger")
+        {
+            //SprintTrigger.SetActive(false);
+            DeleteShiftTrigger.SetActive(false);
+        } 
+        
+        
+        
+        
+        if (other.gameObject.tag == "Roof")
+        {
+            //roof.SetActive(false);
+            //roof2.SetActive(false);
+        }
+         
+         
+         if (other.gameObject.tag == "Key2")
+         {
+             keyMessage.SetActive(true);
+             if(Input.GetKeyDown(KeyCode.E))
+             {
+                key2.SetActive(false);
+                keyMessage.SetActive(false);
+                KeyUi2.SetActive(true);
+                door2 = true;
+             }
+             
+         }
+         
+
+         if (other.gameObject.tag == "Key3")
+         {
+             keyMessage.SetActive(true);
+             if(Input.GetKeyDown(KeyCode.E))
+             {
+                ColliderKey3.SetActive(false);
+                keyMessage.SetActive(false);
+                KeyUi3.SetActive(true);
+                youhavekey3 = true;
+             }
+             
+         }
+         
+         
+         if (other.gameObject.tag == "Key")
+         {
+             keyMessage.SetActive(true);
+             if(Input.GetKeyDown(KeyCode.E))
+             {
+                key.SetActive(false);
+                keyMessage.SetActive(false);
+                KeyUi.SetActive(true);
+                door = true;
+             }
+             
+         }
+/*
+         if (other.gameObject.tag == "RifleTrigger")
+        {
+            RifleText.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                RifleImage.SetActive(false);
+                secondaryWeaponActive = true;
+            }
+        }
+        
+        if (other.gameObject.tag == "FlashLight")
+        {
+            FlashLight_Mess.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                FlashLight.SetActive(false);
+                FlashLight_Power1.SetActive(true);
+                   
+            
+            }
+        }
+        */
+        if (other.gameObject.tag == "Teleporter")
+        {
+            UI_Stairs_Mess.SetActive(true);
+        }
+        else
+        {
+            UI_Stairs_Mess.SetActive(false);
+        }    
+            
+            
+            if (other.gameObject.tag == "Poison")
+        {
+            curHealth -= 10;
+            
+        }      
+                
+            else if (other.gameObject.tag == "FirstAid")
+        {
+            if(curHealth < 100)
+            curHealth += 10;
+        }
+
+            else if (other.gameObject.tag == "Ammo")
+        {
+            currentAmmo += 13;
+        }
+            else if (other.gameObject.tag == "Ammo2")
+        {
+            currentAmmo2 += 7;
+        }
+            else if (other.gameObject.tag == "Score")
+        {
+            score += 10;
+        }
+    
+            
+            
+                if(other.gameObject.tag == "JumpingProp")
+                {
+                    EnemySystem.agroRange = 2; 
+                } 
+                if (other.gameObject.tag == "JumpingProp2")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp3")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp4")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp5")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp6")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp7")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp8")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp9")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp10")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp11")
+                {
+                EnemySystem.agroRange = 2;
+                }/*
+                if (other.gameObject.tag == "JumpingProp12")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp13")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp14")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp15")
+                {
+                EnemySystem.agroRange = 2;
+                }*/
+    
+    if (other.gameObject.tag == "FlashLight")
+        {
+            
+            FlashLightNumber1();
+            
+            
+            
+            
+            /*
+            TipMessenge.SetActive(true);
+            TipOriginalsquare_02.SetActive(true);
+            TipOriginalsquare_01.SetActive(true);
+            
+            FlashLight_Mess.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                FlashLight.SetActive(false);
+                //FlashLight_View.SetActive(false);
+                changeFlash();
+                HideUi_HealthBar.SetActive(true);
+                HideUi_HealthBar2.SetActive(true);
+                DoorMessenge.SetActive(false);
+                next = true;
+                FlashLight_Power1.SetActive(true);
+                FlashLight_Default_Power.SetActive(false);
+                FirstQuest.SetActive(false);
+                SecondQuestBOX.SetActive(false);
+
+            }
+        */
+        }
+    
+    }
+        
+        void OnTriggerStay2D(Collider2D other)
+    {
+        // End of the game 
+                                if (other.gameObject.tag == "EnterHeli")
+                                {
+                                    EnterPressE.SetActive(true);
+                                        
+                                        if(Input.GetKeyDown(KeyCode.E))
+                                            {
+                                        EnterHeli.SetActive(false);
+                                        EndGameSpriteCanvas.SetActive(true);
+                                            }
+                                }
+        // End of the game 
+        
+        if (other.gameObject.tag == "RefuelHeli")
+        {
+            RefuelText.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                //HeliCollider.SetActive(false);
+                youhavetheCan = false;
+                Quest4_Pop_up.SetActive(false);
+                Quest5.SetActive(true);
+                //FinishTheHeli = true;
+                EnterHeli.SetActive(true);
+            }
+        }
+
+
+        if (other.gameObject.tag == "CanOfGasoline")
+        {
+            CanOfGasolineText.SetActive(true);
+        
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+            GasCanObject.SetActive(false);
+            youhavetheCan = true;
+            Quest3_Pop_up.SetActive(false);
+            Quest4_Pop_up.SetActive(true);
+            }
+        }
+        
+        
+        
+        
+         if (other.gameObject.tag == "Quest3")
+         {
+            Quest3_Pop_up.SetActive(true);
+            //SecondQuestBOX.SetActive(true);
+            MainQuest.SetActive(false);
+         
+         }
+       
+       
+       
+         if (other.gameObject.tag == "Key3")
+         {
+             keyMessage.SetActive(true);
+             if(Input.GetKeyDown(KeyCode.E))
+             {
+                ColliderKey3.SetActive(false);
+                keyMessage.SetActive(false);
+                KeyUi3.SetActive(true);
+                youhavekey3 = true;
+             }
+             
+         }
+        
+        if (other.gameObject.tag == "FlashLight_Power2")
+            {
+                FlashLight_Mess2.SetActive(true);
+                if(Input.GetKeyDown(KeyCode.E))
+             {
+                FlashLight_Power2.SetActive(true);
+                FlashLight_Power1.SetActive(false);
+                FlashLight_Default_Power2.SetActive(false);
+                FlashLight2.SetActive(false);
+             }
+            }  
+        
+        
+        
+        
+        
+        if (other.gameObject.tag == "Roof")
+            {
+            //roof.SetActive(false);
+            //roof2.SetActive(false);
+            }
+          
+          
+          
+          if (other.gameObject.tag == "Second_Quest_need")
+          {
+            
+            
+            SecondQuest.SetActive(true);
+            SecondQuestBOX.SetActive(true);
+            
+            
+          }
+          
+          
+          if (other.gameObject.tag == "Key2")
+         {
+             keyMessage.SetActive(true);
+             if(Input.GetKeyDown(KeyCode.E))
+             {
+                key2.SetActive(false);
+                keyMessage.SetActive(false);
+                KeyUi2.SetActive(true);
+                door2 = true;
+             }
+             
+         }
+          
+          
+          if (other.gameObject.tag == "UnlockDoor2")
+         {
+            if (door2 == false)
+            {
+                YouNeedToFindAKey.SetActive(true);
+                DoorUnlockMessage.SetActive(false);
+            }
+            else
+            {
+                YouNeedToFindAKey.SetActive(false);
+                DoorUnlockMessage.SetActive(true);
+            }
+            
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    if (door2 == true)
+                    {
+                    EmptyObjectUnlock2.SetActive(false);
+                    keyCollider3.SetActive(false);
+                    keyCollider4.SetActive(false);
+                    keyPocket2 = true;
+                    YouNeedToFindAKey.SetActive(false);
+                    DoorUnlockMessage.SetActive(false);
+                    
+                    
+                    }
+                
+                }
+         }  
+
+             if (other.gameObject.tag == "UnlockDoor3")
+             {
+                if (youhavekey3 == false)
+                {
+                YouNeedToFindAKey.SetActive(true);
+                DoorUnlockMessage.SetActive(false);
+                }
+                else
+                {
+                YouNeedToFindAKey.SetActive(false);
+                DoorUnlockMessage.SetActive(true);
+                }
+                 if(Input.GetKeyDown(KeyCode.E))
+                 {
+                    if (youhavekey3 == true)
+                    {
+                        ColliderDoor1.SetActive(false);
+                        ColliderDoor2.SetActive(false);
+                        EmptyObjectUnlock3.SetActive(false);
+                        EmptyObjectForSecondQuest2.SetActive(false);
+                        SecondQuest.SetActive(false);
+                        keyPocket2 = true;
+                        SecondQuestBOX.SetActive(false);
+                        KeyUi3.SetActive(false);
+                    }
+                 }
+             }
+
+
+          if (other.gameObject.tag == "UnlockDoor")
+         {
+            if (door == false)
+            {
+                YouNeedToFindAKey.SetActive(true);
+                DoorUnlockMessage.SetActive(false);
+            }
+            else
+            {
+                YouNeedToFindAKey.SetActive(false);
+                DoorUnlockMessage.SetActive(true);
+            }
+            
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    if (door == true)
+                    {
+                    EmptyObjectUnlock.SetActive(false);
+                    keyCollider.SetActive(false);
+                    keyCollider2.SetActive(false);
+                    keyPocket = true;
+                    YouNeedToFindAKey.SetActive(false);
+                    DoorUnlockMessage.SetActive(false);
+                    //ThirdQuest.SetActive(true);
+                    SecondQuest.SetActive(false);
+                    SecondQuestBOX.SetActive(false);
+                    EmptyObjectForSecondQuest.SetActive(false);
+                    }
+                
+                }
+         }  
+          
+         
+         if (other.gameObject.tag == "Key")
+         {
+             keyMessage.SetActive(true);
+             if(Input.GetKeyDown(KeyCode.E))
+             {
+                key.SetActive(false);
+                keyMessage.SetActive(false);
+                KeyUi.SetActive(true);
+                door = true;
+             }
+             
+         }
+        
+       
+        if(other.gameObject.tag == "SprintTrigger")
+        {
+            SprintTrigger.SetActive(true);
+        
+        } 
+        
+        
+        if (other.gameObject.tag == "jumpMessenge")
+        {
+            if (mjump == true)
+            {
+                MessengeHoldJump.SetActive(false);
+            }
+            else
+            {
+                MessengeHoldJump.SetActive(true);
+                TipMessenge.SetActive(true);
+                TipOriginalsquare_02.SetActive(true);
+                TipOriginalsquare_01.SetActive(true);
+            }            
+            
+        }
+        if (other.gameObject.tag == "DeletejumpMessenge")
+        {
+            mjump = true;
+        }
+        
+        
+        
+
+        if (other.gameObject.tag == "TriggerMessenge")
+        {
+            if (next == true)
+            {
+            DoorMessenge.SetActive(false);
+            }
+            else
+            {
+            DoorMessenge.SetActive(true);   
+            TipMessenge.SetActive(true);
+            TipOriginalsquare_02.SetActive(true);
+            TipOriginalsquare_01.SetActive(true);
+            }
+        }
+        
+        
+        
+        if (other.gameObject.tag == "FlashLight")
+        {
+            
+             FlashLightNumber1();
+            
+            
+            
+            
+            /*
+            TipMessenge.SetActive(true);
+            TipOriginalsquare_02.SetActive(true);
+            TipOriginalsquare_01.SetActive(true);
+            
+            FlashLight_Mess.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                FlashLight.SetActive(false);
+                //FlashLight_View.SetActive(false);
+                changeFlash();
+                HideUi_HealthBar.SetActive(true);
+                HideUi_HealthBar2.SetActive(true);
+                DoorMessenge.SetActive(false);
+                next = true;
+                FlashLight_Power1.SetActive(true);
+                FlashLight_Default_Power.SetActive(false);
+                FirstQuest.SetActive(false);
+                SecondQuestBOX.SetActive(false);
+
+            }
+        */
+        }
+
+
+        if (other.gameObject.tag == "RifleTrigger")
+        {
+            TipMessenge.SetActive(true);
+            TipAdjustsquare_01.SetActive(true);
+            TipAdjustsquare_02.SetActive(true);
+            RifleText.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                RifleImage.SetActive(false);
+                secondaryWeaponActive = true;
+            }
+            
+            
+            
+        }
+
+                
+                if (other.gameObject.tag == "JumpingProp")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp2")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp3")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp4")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp5")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp6")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp7")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp8")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp9")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp10")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp11")
+                {
+                EnemySystem.agroRange = 0;
+                }/*
+                if (other.gameObject.tag == "JumpingProp12")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp13")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp14")
+                {
+                EnemySystem.agroRange = 0;
+                }
+                if (other.gameObject.tag == "JumpingProp15")
+                {
+                EnemySystem.agroRange = 0;
+                }*/
+
+    
+    }
+
+        void OnTriggerExit2D(Collider2D other)
+    {
+         if (other.gameObject.tag == "EnterHeli")
+        {
+            EnterPressE.SetActive(false);
+        }
+        
+        
+        
+        if (other.gameObject.tag == "RefuelHeli")
+        {
+            RefuelText.SetActive(false);
+
+        }
+       
+       if (other.gameObject.tag == "CanOfGasoline")
+        {
+            CanOfGasolineText.SetActive(false);
+        }
+       
+       
+       if (other.gameObject.tag == "Roof")
+        {
+        //roof.SetActive(true);
+        //roof.SetActive(true);
+        }
+       
+        if (other.gameObject.tag == "Key3")
+        {
+            keyMessage.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "Key2")
+        {
+            keyMessage.SetActive(false);
+        }
+        
+        if (other.gameObject.tag == "UnlockDoor2")
+        {
+            DoorUnlockMessage.SetActive(false);
+            YouNeedToFindAKey.SetActive(false);
+        }
+
+
+        if (other.gameObject.tag == "UnlockDoor3")
+        {
+            DoorUnlockMessage.SetActive(false);
+            YouNeedToFindAKey.SetActive(false);
+        }
+        
+
+        if (other.gameObject.tag == "UnlockDoor")
+        {
+            DoorUnlockMessage.SetActive(false);
+            YouNeedToFindAKey.SetActive(false);
+        }
+        
+        if (other.gameObject.tag == "Key")
+        {
+            keyMessage.SetActive(false);
+        }
+        
+        if(other.gameObject.tag == "SprintTrigger")
+        {
+            SprintTrigger.SetActive(false);
+        } 
+
+        if (other.gameObject.tag == "RifleTrigger")
+        {
+        RifleText.SetActive(false);
+            TipMessenge.SetActive(false);
+            TipAdjustsquare_01.SetActive(false);
+            TipAdjustsquare_02.SetActive(false);
+        }
+        if (other.gameObject.tag == "jumpMessenge")
+        {
+            MessengeHoldJump.SetActive(false);
+            TipMessenge.SetActive(false);
+            TipOriginalsquare_02.SetActive(false);
+            TipOriginalsquare_01.SetActive(false);
+        }
+        
+        
+        if (other.gameObject.tag == "TriggerMessenge")
+        {
+            DoorMessenge.SetActive(false);
+            TipMessenge.SetActive(false);
+            TipOriginalsquare_02.SetActive(false);
+            TipOriginalsquare_01.SetActive(false);
+        }
+        
+        
+        if (other.gameObject.tag == "FlashLight_Power2")
+        {
+            FlashLight_Mess2.SetActive(false);   
+        }
+        
+        if (other.gameObject.tag == "FlashLight")
+        {
+            FlashLight_Mess.SetActive(false);
+            TipMessenge.SetActive(false);
+            TipOriginalsquare_01.SetActive(false);
+            TipOriginalsquare_02.SetActive(false);
+        }
+        
+        
+            if (other.gameObject.tag == "Teleporter")
+        {
+            UI_Stairs_Mess.SetActive(false);
+        }
+        
+            
+            if(other.gameObject.tag == "JumpingProp")
+                {
+                    EnemySystem.agroRange = 2; 
+                } 
+                if (other.gameObject.tag == "JumpingProp2")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp3")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp4")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp5")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp6")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp7")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp8")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp9")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp10")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp11")
+                {
+                EnemySystem.agroRange = 2;
+                }
+               /* if (other.gameObject.tag == "JumpingProp12")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp13")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp14")
+                {
+                EnemySystem.agroRange = 2;
+                }
+                if (other.gameObject.tag == "JumpingProp15")
+                {
+                EnemySystem.agroRange = 2;
+                }*/
+            
+    }
+
+        
+        void OnCollisionEnter2D(Collision2D col)
+        {
+            if (col.gameObject.tag == "DestroyCollider")
+            {
+                if(next == true)
+                {
+                    Destroy (col.gameObject);
+                }
+            }
+        
+            
+        
+        
+        }
+            
+        
+
+
+
+        
+        public void Move() 
+    
+    {
+       
+       
+       rb.velocity = new Vector2(movement.x, movement.y);
+       
+       
+    
+
+    
+    }
+    
+        
+        /*
+        void hop()
+{
+
+        GameObject jampp = Instantiate(bedPrefab);
+
+
+            if (gameObject.tag == "Player")
+            {
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    boxColliderComponent.enabled = false;
+                } 
+        
+                else if (Input.GetKeyUp(KeyCode.Space)) 
+                {
+                    boxColliderComponent.enabled = true;
+                }
+        
+            }
+        */
+        
+
+            
+
+
+
+
+
+    void PlayerWalking()
+    {
+      /*  if (rb.velocity = new Vector2(movement.x, movement.y))
+        {
+            staminaRegen.isWalking = false;
+        }
+        else
+        {
+            staminaRegen.isWalking = true;
+        }
+
+
+        if (movement.y != Input.GetAxisRaw("Vertical"))
+        {
+            staminaRegen.isWalking = false;
+        }
+        else
+        {
+            staminaRegen.isWalking = true;
+        }
+*/
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        staminaRegen.isWalking = true;
+    }
+
+    void FlashLightNumber1()
+        {
+            TipMessenge.SetActive(true);
+            TipOriginalsquare_02.SetActive(true);
+            TipOriginalsquare_01.SetActive(true);
+            
+            FlashLight_Mess.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                FlashLight.SetActive(false);
+                //FlashLight_View.SetActive(false);
+                changeFlash();
+                HideUi_HealthBar.SetActive(true);
+                HideUi_HealthBar2.SetActive(true);
+                DoorMessenge.SetActive(false);
+                next = true;
+                FlashLight_Power1.SetActive(true);
+                FlashLight_Default_Power.SetActive(false);
+                FirstQuest.SetActive(false);
+                SecondQuestBOX.SetActive(false);
+
+            }
+        }
+
+        
+        
+
+        
+        void Update()
+    {
+        
+       
+                    
+
+        if (youhavetheCan == true)
+        {
+            HeliCollider.SetActive(true);
+        }
+        else
+        {
+            HeliCollider.SetActive(false);
+        }
+
+        
+        
+
+
+        PlayerWalking();
+        
+        
+        if (keyPocket == true)
+        {
+            KeyUi.SetActive(false);
+        }
+        if (keyPocket2 == true)
+        {
+            KeyUi2.SetActive(false);
+        }
+        
+        if (curHealth <= 15 )
+        {
+            LowHealth.SetActive(true);
+        }
+        else
+        {
+            LowHealth.SetActive(false);
+        }
+         
+        
+        
+   
+     
+     //hop();
+     
+                  //    Switch Weapons . . . . .I need to See the Video 
+     
+        if(secondaryWeaponActive == true)
+        {
+            SwapIcon.SetActive(true);
+            if (Input.GetButtonDown("2Key"))
+            {
+                animator.Play("New_Idle_02_Rifle");
+            }
+            if (Input.GetButtonDown("1Key"))
+            {
+                animator.Play("New_Idle");
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("1Key"))
+            {
+                animator.Play("New_Idle");
+            }
+        }
+        
+        /*
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            animator.Play("New_Idle_02_Rifle");
+        }
+        
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            animator.Play("New_Idle");
+        }
+     */
+     
+        
+        
+    
+        
+        
+        if (gameObject.tag == "Player")
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                boxColliderComponent.enabled = false;
+                boxColliderComponent2.enabled = false;
+                boxColliderComponent3.enabled = false;
+                boxColliderComponent4.enabled = false;
+                boxColliderComponent5.enabled = false;
+                boxColliderComponent6.enabled = false;
+                boxColliderComponent7.enabled = false;
+                boxColliderComponent8.enabled = false;
+                boxColliderComponent9.enabled = false;
+                boxColliderComponent10.enabled = false;
+                boxColliderComponent11.enabled = false;
+               // boxColliderComponent12.enabled = false;
+                //boxColliderComponent13.enabled = false;
+                //boxColliderComponent14.enabled = false;
+                //boxColliderComponent15.enabled = false;
+            } 
+        
+            else if (Input.GetKeyUp(KeyCode.Space)) 
+            {
+                boxColliderComponent.enabled = true;
+                boxColliderComponent2.enabled = true;
+                boxColliderComponent3.enabled = true;
+                boxColliderComponent4.enabled = true;
+                boxColliderComponent5.enabled = true;
+                boxColliderComponent6.enabled = true;
+                boxColliderComponent7.enabled = true;
+                boxColliderComponent8.enabled = true;
+                boxColliderComponent9.enabled = true;
+                boxColliderComponent10.enabled = true;
+                boxColliderComponent11.enabled = true;
+                //boxColliderComponent12.enabled = true;
+                //boxColliderComponent13.enabled = true;
+                //boxColliderComponent14.enabled = true;
+                //boxColliderComponent15.enabled = true;
+            }
+        
+        }
+     
+     
+        
+    
+       
+
+       /*
+        
+        if (Input.GetButtonDown("space"))
+        {
+            jump - true;
+            animator.SetBool("IsJumping", true);
+        }
+        
+       */
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.magnitude);
+
+
+
+        
+       
+        mousePos = cam.ScreenToWorldPoint (Input.mousePosition);
+        //ui.UpdateHealthBar();
+    
+        //if (isReloading)
+        //return;
+
+        //if (currentAmmo <=0)
+        //{
+        //    StartCoroutine(Reload());
+        //    return;
+        //}
+        
+        //IEnumerator Reload()
+        //{
+        //    isReloading = true;
+
+       //     Debug.Log("Reloading . . .");
+
+        //    yield return new WaitForSeconds(reloadTime);
+
+        //    currentAmmo = maxAmmo;
+            
+        //    isReloading = false;
+        
+        
+        
+        
+        
+        
+        if (flashActive)
+        {
+            if (flashCounter > flashLength * .99f)
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            }
+            
+            else if (flashCounter > flashLength * .82f)
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            }
+            
+            else if (flashCounter > flashLength * .66f)
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            }
+            
+            else if (flashCounter > flashLength * .49f)
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            }
+            
+            else if (flashCounter > flashLength * .33f)
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            }
+            
+            else if (flashCounter > flashLength * .16f)
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            }
+            
+            else if (flashCounter > 0f)
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            }
+            
+            else 
+            
+            {
+                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f); 
+                flashActive = false;
+            }
+            flashCounter -= Time.deltaTime;       
+        }
+    
+    
+    
+        if (Input.GetMouseButtonDown(0) && this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Idle"))  //this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Walk"))
+        {
+            pistol();
+            
+        }
+        if (Input.GetMouseButtonDown(0) && this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Walk"))
+        {
+            pistol();
+            PistolUi.SetActive(true);
+            RifleUi.SetActive(false);
+        }
+        if (Input.GetMouseButtonDown(0) && this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Idle_02_Rifle")) //this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Walk_02_Rifle"))
+        {
+            rifle();
+            PistolUi.SetActive(false);
+            RifleUi.SetActive(true);
+        }
+        if (Input.GetMouseButtonDown(0) && this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Walk_02_Rifle")) //this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Walk_02_Rifle"))
+        {
+            rifle();
+            PistolUi.SetActive(false);
+            RifleUi.SetActive(true);
+        }
+
+        
+        
+        
+        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Idle"))
+        {
+            PistolUi.SetActive(true);
+            PistolImageUi.SetActive(true);
+            RifleUi.SetActive(false);
+            RifleImageUi.SetActive(false);
+            PistolImageUi2.SetActive(false);
+            RifleImageUi2.SetActive(false);
+            if (secondaryWeaponActive == true)
+            {
+                RifleImageUi2.SetActive(true);
+
+            }
+        }
+        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Walk"))
+        {
+            PistolUi.SetActive(true);
+            PistolImageUi.SetActive(true);
+            RifleUi.SetActive(false);
+            RifleImageUi.SetActive(false);
+            PistolImageUi2.SetActive(false);
+            RifleImageUi2.SetActive(false);
+            if (secondaryWeaponActive == true)
+            {
+                RifleImageUi2.SetActive(true);
+
+            }
+        }
+        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Idle_02_Rifle"))
+        {
+            PistolUi.SetActive(false);
+            RifleUi.SetActive(true);
+            PistolImageUi.SetActive(false);
+            RifleImageUi.SetActive(true);
+            PistolImageUi2.SetActive(true);
+            RifleImageUi2.SetActive(false);
+        }
+        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("New_Walk_02_Rifle"))
+        {
+            PistolUi.SetActive(false);
+            RifleUi.SetActive(true);
+            PistolImageUi.SetActive(false);
+            RifleImageUi.SetActive(true);
+            PistolImageUi2.SetActive(true);
+            RifleImageUi2.SetActive(false);
+        }
+
+        
+
+
+
+
+
+        void pistol()
+        {
+            if (Input.GetMouseButtonDown(0) && !isFiring && currentAmmo > 0 )
+        {
+            isFiring = true;
+            currentAmmo--;
+            isFiring = false;
+            
+        }
+        if (currentAmmo <= 0 )
+        {
+            Prefab_Bullet.SetActive(false);
+            
+        }
+        else
+        {
+            Prefab_Bullet.SetActive(true);  
+            
+        }
+        }
+        
+        
+        
+        void rifle()
+    {
+            if (Input.GetMouseButtonDown(0) && !isFiring2 && currentAmmo2 > 0 )
+            {
+            isFiring2 = true;
+            currentAmmo2--;
+            isFiring2 = false; 
+            }
+        
+        if (currentAmmo2 <= 0 )
+        {
+            Prefab_Bullet2.SetActive(false);
+            
+        }
+        else
+        {
+            Prefab_Bullet2.SetActive(true); 
+            
+        }
+        
+    }
+
+
+            
+            // ---------SprintinUi---------
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            
+            if (staminaRegen.stamina >=0)
+            isSprinting = true;
+            else
+            if (staminaRegen.stamina <=0)
+            isSprinting = false;
+                
+            if (isSprinting == true)
+        {
+            movement *= sprintingMultiplier;
+        }
+        }
+        
+        
+
+        
+            // ---------SprintinUi---------
+
+       
+
+    }
+    
+    //                          AMA EINAI > 0 SETACTIVE = TRUE  ELSE AMA EINAI < == 0 SETACTIVE = FALSE
+        
+        
+
+        
+        
+        
+        void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x ) * Mathf.Rad2Deg;
+        rb.rotation = angle;
+    }
+    
+
+        
+        
+        
+        private bool flashActive;
+        
+        [SerializeField]
+        
+        private float flashLength = 0f;
+        
+        private float flashCounter = 0f;
+        
+        private SpriteRenderer playerSprite;
+        
+
+
+
+       
+        
+        
+        public void HurtPlayer(int damageToGive)
+    {                                               //  curHealth -= damageToGive;    Or      curHealth = curHealth - damageToGive;
+        curHealth -= damageToGive;
+        flashActive = true;
+        flashCounter = flashLength;
+
+        if (curHealth <= 0 )
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+
+
+        
+        
+    
+
+}
