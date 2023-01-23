@@ -1,0 +1,67 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class UIScript : MonoBehaviour
+{
+    
+    private PlayerMovement player;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI ammoText2;
+    public Slider currentHealthFill;
+    
+
+   void Start()
+   {
+       player = FindObjectOfType<PlayerMovement>();
+   }
+   
+
+   
+   public void Update()
+   { 
+        scoreText.text = "" + player.score;
+        ammoText.text = "" + player.currentAmmo;
+        ammoText2.text = "" + player.currentAmmo2;
+        currentHealthFill.maxValue = player.totalHealth;
+        currentHealthFill.value = player.curHealth;
+   
+      
+   
+   
+   
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   //public void SetMaxHealth()
+   //{
+       
+       
+   //}
+
+   //public void UpdateHealthBar()
+   //{
+     //  currentHealthFill.value = player.curHealth;
+   //}
+
+}
+
+
+
+//void Update();
+   //{
+      // scoreText.text = "Score: " + player.
+
+   //}
+
+                // MaxHealth == TotalHealth
