@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HurtEnemy : MonoBehaviour
+{   // na tsekarw to script
+    
+    public int damageToGive = 2;
+    public int damageToGiveRifle = 4;
+    //private Shooting BulletPrefab;
+    
+
+    
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //BulletPrefab = FindObjectOfType<Shooting>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        /*if (Input.GetMouseButtonDown(0) && !isFiring && ammo > 0 )
+        {
+            isFiring = true;
+            ammo--;
+            isFiring = false;
+        }*/
+        
+        
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            EnemyHealthManager eHealthMan;
+            
+            eHealthMan = other.gameObject.GetComponent<EnemyHealthManager>();
+            eHealthMan.HurtEnemy(damageToGive);
+        }
+    
+    
+    
+    
+    
+    
+    
+    }
+
+   
+
+
+}
